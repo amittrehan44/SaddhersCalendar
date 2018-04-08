@@ -1,0 +1,13 @@
+input.ng-invalid.ng-dirty{
+    border: 1px solid red;
+}
+
+ss-multiselect-dropdown.ng-invalid.ng-dirty{
+    border: 2px solid red;
+}
+
+
+button:hover,ul.list-group.hover li:hover{
+    cursor: pointer;
+   }
+

@@ -1,0 +1,49 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { environment } from './../../environments/environment';
+//import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalendarModule } from 'angular-calendar';
+import { FormsModule } from '@angular/forms';
+
+
+import { MyCalendarComponent } from './my-calendar.component';
+import { CalUtilsModule } from './../cal-utils/cal-utils.module';
+import { AppComponent } from './../app.component';
+
+import { AppRoutingModule } from './../app-routing.module';
+
+
+import { CalEventsService } from './../cal-events.service'
+import { CalendarEventTitleFormatter} from 'angular-calendar';
+import { CustomEventTitleFormatter } from './../custom-event-title-formatter.service';
+
+@NgModule({
+  imports: [
+      CommonModule,
+//      BrowserModule,
+      BrowserAnimationsModule,
+      NgbModule.forRoot(),
+      NgbModalModule.forRoot(),
+      FormsModule,
+      CalendarModule.forRoot(),
+      CalUtilsModule,
+      CalendarModule,
+      AppRoutingModule
+  ],
+    declarations: [MyCalendarComponent],
+    exports: [MyCalendarComponent
+
+    ],
+    providers: [CalEventsService,
+        {
+            provide: CalendarEventTitleFormatter,
+            useClass: CustomEventTitleFormatter
+        }
+    ]
+})
+export class MyCalendarModule { }

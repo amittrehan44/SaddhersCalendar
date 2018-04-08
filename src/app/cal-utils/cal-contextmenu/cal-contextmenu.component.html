@@ -1,0 +1,21 @@
+
+<div class="btn btn-primary"  (click)="onClick()">ADD3</div>
+
+<ul>
+   
+    <li *ngFor="let item of items" [contextMenu]="basicMenu" [contextMenuSubject]="item">Right Click: {{item?.name}}</li>
+</ul>
+
+<context-menu>
+    <ng-template contextMenuItem let-item (execute)="onClick()" >
+      Add Event  
+    </ng-template>
+    <ng-template contextMenuItem [divider]="true"></ng-template>
+   <!-- <ng-template contextMenuItem let-item (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
+        Bye, {{item?.name}}
+    </ng-template>
+    <ng-template contextMenuItem passive="true">
+        Input something: <input type="text">
+    </ng-template>
+    -->
+</context-menu>

@@ -1,0 +1,56 @@
+
+
+<nav class="navbar navbar-expand-md navbar-light bg-faded">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="">
+        <a class="navbar-brand mx-auto" [routerLink]="['/welcome']" routerLinkActive="active">Appointment Organiser</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <!--
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" [routerLink]="['/welcome']" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        Example to show customized context menue
+                             <li class="nav-item">
+                                  <a class="nav-link" [contextMenu]="basicMenu" [contextMenuSubject]="item" href="#">Add Event</a>
+                              </li>
+                        Example Ends
+
+                        <li class="nav-item active">
+                            <a class="nav-link" [routerLink]="['/ragister']" routerLinkActive="active">Register <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="auth.signOut()">Logout</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown link
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+        -->
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['/welcome']" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['/ragister']" routerLinkActive="active">Register <span class="sr-only">(current)</span></a>
+            </li>
+            <!-- <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['/charts']" routerLinkActive="active">Charts <span class="sr-only">(current)</span></a>
+            </li> -->
+            <li class="nav-item active"><a class="nav-link" (click)="auth.signOut()">Logout</a></li>
+        </ul>
+    </div>
+</nav>

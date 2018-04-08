@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* .dropdown-item.active {
+    background-color: #DFECFA!important;
+
+}
+
+.dropdown-item:active {
+    background-color: #DFECFA!important;
+
+} */
+
+input.ng-star-inserted {
+    display: none;
+}
+
+
+a.dropdown-item > span > input {
+    display: none;
+}
+
+.cell-totals {
+      margin: 5px;
+      text-align: center;
+    }
+    .badge {
+      margin-right: 5px;
+    }
+

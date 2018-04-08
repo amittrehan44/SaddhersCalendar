@@ -1,0 +1,149 @@
+<form #appointmentForm="ngForm" (ngSubmit)="onSubmit(appointmentForm)">
+    <input type="hidden" name="$key" #$key="ngModel" [(ngModel)]="_caleventService.selectedAppointment.$key">
+    
+    <div class="row container col-md-12">
+        <div class="form-group col-md-6">
+            <label>First Name</label>
+            <input class="form-control" name="firstName" #name="ngModel" [(ngModel)]="_caleventService.selectedAppointment.firstName" placeholder="First Name" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Last Name</label>
+            <input class="form-control" name="lastName" #name="ngModel" [(ngModel)]="_caleventService.selectedAppointment.lastName" placeholder="Last Name" required>
+        </div>
+       
+    </div>
+
+    <div class="row container col-md-12">
+        <input type="hidden" class="form-control"  name="email" #email="ngModel" [(ngModel)]="_caleventService.selectedAppointment.email" placeholder="Email" />
+
+        <!-- <div class="form-group col-md-6">
+            <label>Email</label>
+            <input class="form-control" placeholder=""  name="email" #email="ngModel" [(ngModel)]="_caleventService.selectedAppointment.email" placeholder="Email" />
+
+        </div> -->
+
+        <div class="form-group col-md-6">
+            <label>Cell Phone(SMS)</label>
+            <input class="form-control" placeholder="+1 (xxx) xxx-xxxx" [textMask]="{mask: mask}" name="phone" #phone="ngModel" [(ngModel)]="_caleventService.selectedAppointment.phone" pattern="\+\d\d{10}"/>
+            
+        </div>
+        <div class="form-group col-md-6">
+            <label>Landline</label>
+            <input class="form-control" placeholder="+1 (xxx) xxx-xxxx" [textMask]="{mask: mask}" name="landline" #phone="ngModel" [(ngModel)]="_caleventService.selectedAppointment.landline" pattern="\+\d\d{10}"/>
+            
+        </div>
+    </div>
+        
+
+
+    <div class="row container col-md-12">
+        <div class="form-group col-md-6">
+            <label>Service</label><br />
+           <ss-multiselect-dropdown  [options]="myServiceOptions" [(ngModel)]="optionsModel" name="service1" (ngModelChange)="onChange($event)" required></ss-multiselect-dropdown> 
+          <!--   <ss-multiselect-dropdown  [options]="myServiceOptions" [(ngModel)]="optionsModel" name="service1" (ngModelChange)="onChange()" required></ss-multiselect-dropdown> -->
+            <!--
+                           <label>Service</label>
+                           <input class="form-control" list="services" name="service" #service="ngModel" [(ngModel)]="_caleventService.selectedAppointment.service" placeholder="Service">
+                           <datalist id="services">
+                               <option>Waxing </option>
+                               <option>Trimming</option>
+                               <option>Laser</option>
+                               <option>Hair Cut</option>
+                               <option>Facial</option>
+                           </datalist>
+                -->
+        </div>
+
+
+
+        <div class="form-group col-md-6">
+            <label>Stylist:</label>
+            <input type="radio" name="stylist_title" value="Gurpreet" [(ngModel)]="_caleventService.selectedAppointment.stylist_title"> Gurpreet
+            <input type="radio" name="stylist_title" value="Meena" [(ngModel)]="_caleventService.selectedAppointment.stylist_title"> Meena
+            <input type="radio" name="stylist_title" value="Other" [(ngModel)]="_caleventService.selectedAppointment.stylist_title"> Other
+            <div class="form-group col-md-12">
+                <input class="form-control" list="stylist" name="stylist_title" #stylist_title="ngModel" [(ngModel)]="_caleventService.selectedAppointment.stylist_title" placeholder="Stylist">
+            </div>
+        </div>
+
+    </div>
+
+    <!--Service multiselectExperiment
+    <div class="row container col-md-12">
+        <div class="form-group col-md-6">
+            <ss-multiselect-dropdown [options]="myServiceOptions" [(ngModel)]="optionsModel" name="service1" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+        </div>
+    </div>
+-->
+    <!--Radio Button
+    <div class="row container col-md-12">
+        <div class="form-group col-md-12">
+            <label>Gender:</label><br />
+            <input type="radio" name="gender" value="M" [(ngModel)]="_caleventService.selectedAppointment.gender"> Male
+            <input type="radio" name="gender" value="F" [(ngModel)]="_caleventService.selectedAppointment.gender"> Female
+        </div>
+    </div>
+-->
+        <div class="row container col-md-12">
+            <div class="form-group col-md-6">
+                <label>Starts at</label>
+                <mwl-demo-utils-date-time-picker class="form-control"
+                                                 name="start"
+                                                 #start="ngModel"
+                                                 [(ngModel)]="_caleventService.selectedAppointment.start"
+                                                 (ngModelChange)="refresh.next()"
+                                                 placeholder="Not set">
+                </mwl-demo-utils-date-time-picker>
+   <!--             <div><p>{{_caleventService.selectedAppointment.start}}</p></div> -->
+            </div>
+           
+            <div class="form-group col-md-6">
+<!--                <label>Ends at</label>
+                <mwl-demo-utils-date-time-picker class="form-control"
+                                                 name="end"
+                                                 #end="ngModel"
+                                                 [(ngModel)]="_caleventService.selectedAppointment.end"
+                                                 (ngModelChange)="refresh.next()"
+                                                 placeholder="Not set">
+                </mwl-demo-utils-date-time-picker>
+-->
+                <label>Duration (Hrs:Mins)</label>
+                <input class="form-control" name="duration" [(ngModel)]="_caleventService.durationString" placeholder="Hrs:Mins" [textMask]="{mask: mask1}" pattern="\d\:\d{2}" style="width: 150px;">  
+                <br />
+                <br />
+                <div class="form-group col-md-12">
+                    <label>Gender:</label><br />
+                    <input type="radio" name="gender" value="M" [(ngModel)]="_caleventService.selectedAppointment.gender"> Male
+                    <input type="radio" name="gender" value="F" [(ngModel)]="_caleventService.selectedAppointment.gender"> Female
+                </div>  
+            </div>
+        </div>
+<!-- 
+       <div class="row container col-md-12">
+        <div class="form-group col-md-6">
+            <label>Duration</label>
+            <input class="form-control" name="duration"  [(ngModel)]="_caleventService.durationString"   placeholder="0:00 Hrs:Mins" [textMask]="{mask: mask1}"  pattern="\d\:\d{2}" style="width: 150px;">
+        </div>
+        
+    </div>
+-->
+    
+        
+        <div class="row container col-md-12">
+            <div class="form-group col-md-12">
+                <label>Notes</label>
+                <textarea class="form-control" name="notes" #lastname="ngModel" [(ngModel)]="_caleventService.selectedAppointment.notes" placeholder="Notes"></textarea>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <button type="submit" class="btn btn-default" [disabled]="!appointmentForm.valid">
+                <i class="fa fa-floppy-o"></i> Submit
+            </button>
+            <button type="button" class="btn btn-default" *ngIf="_caleventService.selectedAppointment.$key!=null" (click)="onDelete(appointmentForm)">
+                <i class="fa fa-trash"></i> Delete
+            </button>
+            <button type="button" class="btn btn-default" *ngIf="_caleventService.selectedAppointment.$key==null" (click)="resetForm(appointmentForm)">
+                <i class="fa fa-repeat"></i> Reset
+            </button>
+        </div>
+</form>

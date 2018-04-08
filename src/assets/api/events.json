@@ -1,0 +1,29 @@
+﻿[
+  {
+    "end": "addDays(new Date(), 1)",
+    "firstname": "Arjun",
+    "lastname": "Kumar",
+    "service": "haircut",
+    "start": "2017-11-18",
+    "stylist_title": "Gurpreet",
+    "gender": "M"
+  },
+  {
+    "end": "addDays(new Date(), 1)",
+    "firstname": "Harvinder",
+    "lastname": "Singh",
+    "service": "Facial",
+    "start": "2017-11-18",
+    "stylist_title": "Gurpreet",
+    "gender":  "M"
+  },
+  {
+    "end": "addDays(new Date(), 1)",
+    "firstname": "Anglina",
+    "lastname": "Jolley",
+    "service": "waxing",
+    "start": "2017-11-19",
+    "stylist_title": "Meena",
+    "gender":  "M"
+  }
+]

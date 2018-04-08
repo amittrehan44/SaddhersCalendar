@@ -1,0 +1,247 @@
+<!--
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Navbar</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [contextMenu]="basicMenu" [contextMenuSubject]="item" href="#">Add Event</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown link
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+
+
+<ng-template #modalAppointmentForm let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">Create Appointment</h5>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-appointment-input [createModalRef]="createModalRef" ></app-appointment-input>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+    </div>
+</ng-template>
+
+
+
+<context-menu #basicMenu>
+
+        <ng-template contextMenuItem (execute)="open(modalAppointmentForm); _caleventService.contextDate = $event.item" >
+            Add Appointment
+        </ng-template>
+</context-menu>
+
+
+
+
+<ng-template #monthCellTemplate
+             let-day="day"
+             let-openDay="openDay"
+             let-locale="locale"
+             let-tooltipPlacement="tooltipPlacement"
+             let-highlightDay="highlightDay"
+             let-unhighlightDay="unhighlightDay"
+             let-eventClicked="eventClicked">
+    <div class="fill-height" [contextMenu]="basicMenu" [contextMenuSubject]="day.date">
+        <div class="cal-cell-top">
+            <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+            <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+        </div>
+        <div class="cal-events">
+            <div class="cal-event"
+                 *ngFor="let event of day.events"
+                 [style.backgroundColor]="event.color.primary"
+                 [ngClass]="event?.cssClass"
+                 (mouseenter)="highlightDay.emit({event: event})"
+                 (mouseleave)="unhighlightDay.emit({event: event})"
+                 [mwlCalendarTooltip]="event.title | calendarEventTitle:'monthTooltip':event"
+                 [tooltipPlacement]="tooltipPlacement"
+                 (click)="$event.stopPropagation(); eventClicked.emit({event: event})">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #weekHeaderTemplate let-days="days" let-locale="locale" let-dayHeaderClicked="dayHeaderClicked">
+    <div class="cal-day-headers">
+        <div class="cal-header"
+             *ngFor="let day of days"
+             [class.cal-past]="day.isPast"
+             [class.cal-today]="day.isToday"
+             [class.cal-future]="day.isFuture"
+             [class.cal-weekend]="day.isWeekend"
+             [class.cal-drag-over]="day.dragOver"
+             (click)="dayHeaderClicked.emit({day: day})"
+             [contextMenu]="basicMenu"
+             [contextMenuSubject]="day.date">
+            <b>{{ day.date | calendarDate:'weekViewColumnHeader':locale }}</b><br>
+            <span>{{ day.date | calendarDate:'weekViewColumnSubHeader':locale }}</span>
+        </div>
+    </div>
+</ng-template>
+<ng-template #dayHourSegmentTemplate let-segment="segment" let-locale="locale">
+    <div class="cal-hour-segment"
+         [ngClass]="segment.cssClass"
+         [contextMenu]="basicMenu"
+         [contextMenuSubject]="segment.date">
+        <div [hidden]="!segment.isStart" class="cal-time">
+            {{ segment.date | calendarDate:'dayViewHour':locale }}
+        </div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #modalContent let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">Event action occurred</h5>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+       
+        <app-appointment-input [modalRef]="modalRef" (closeModal)="onCloseModal($event)"></app-appointment-input> 
+    </div>
+        
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+    </div>
+</ng-template>
+
+
+
+Start Display
+
+<div class="row">
+    
+    <div class="col-md-9" style="margin: 0;">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="btn-group">
+                    <div class="btn btn-primary"
+                         mwlCalendarPreviousView
+                         [view]="view"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="activeDayIsOpen = false">
+                        Previous
+                    </div>
+                    <div class="btn btn-outline-secondary"
+                         mwlCalendarToday
+                         [(viewDate)]="viewDate">
+                        Today
+                    </div>
+                    <div class="btn btn-primary"
+                         mwlCalendarNextView
+                         [view]="view"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="activeDayIsOpen = false">
+                        Next
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group">
+                    <div class="btn btn-primary"
+                         (click)="view = 'month'"
+                         [class.active]="view === 'month'">
+                        Month
+                    </div>
+                    <div class="btn btn-primary"
+                         (click)="view = 'week'"
+                         [class.active]="view === 'week'">
+                        Week
+                    </div>
+                    <div class="btn btn-primary"
+                         (click)="view = 'day'"
+                         [class.active]="view === 'day'">
+                        Day
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div [ngSwitch]="view">
+            <mwl-calendar-month-view *ngSwitchCase="'month'"
+                                     [viewDate]="viewDate"
+                                     [events]="events"
+                                     [refresh]="refresh"
+                                     [activeDayIsOpen]="activeDayIsOpen"
+                                     (dayClicked)="dayClicked($event.day)"
+                                     (eventClicked)="handleEvent('Clicked', $event.event)"
+                                     (eventTimesChanged)="eventTimesChanged($event)"
+                                     [cellTemplate]="monthCellTemplate">
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view *ngSwitchCase="'week'"
+                                    [viewDate]="viewDate"
+                                    [events]="events"
+                                    [refresh]="refresh"
+                                    (eventClicked)="handleEvent('Clicked', $event.event)"
+                                    (eventTimesChanged)="eventTimesChanged($event)"
+                                    [headerTemplate]="weekHeaderTemplate">
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view *ngSwitchCase="'day'"
+                                   [viewDate]="viewDate"
+                                   [events]="events"
+                                   [refresh]="refresh"
+                                   (eventClicked)="handleEvent('Clicked', $event.event)"
+                                   (eventTimesChanged)="eventTimesChanged($event)"
+                                   [hourSegmentTemplate]="dayHourSegmentTemplate">
+            </mwl-calendar-day-view>
+        </div>
+    </div>
+    <div class="col-md-3" style="margin: 0;">
+        <button class="btn btn-primary" (click)="open(modalAppointmentForm)">Add Appointment</button>
+        <div style="text-align:center">
+            <h3 class="">Today's Appointments</h3>
+        </div>
+        <app-appointment-today></app-appointment-today>
+      
+    </div>
+</div>
+<br><br><br>
+
+<div style="text-align:center">
+    <h2 class="jumbotron">Appoinment Register</h2>
+</div>
+<div class="row">
+    
+    <div class="col-md-12">
+        <app-appointment-list></app-appointment-list>
+    </div>
+</div>
+
+    -->
+
+
+<!--<app-my-calendar></app-my-calendar> -->
+<router-outlet></router-outlet>  

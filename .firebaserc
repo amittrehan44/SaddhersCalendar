@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "my-cal-app-9a044",
+    "production": "saddhersprod",
+    "saddhersdev": "my-cal-app-9a044"
+  }
+}
