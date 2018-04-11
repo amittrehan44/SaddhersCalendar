@@ -21,7 +21,8 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "styles.css",
-        "../node_modules/angular-calendar/dist/css/angular-calendar.css"
+        "../node_modules/angular-calendar/dist/css/angular-calendar.css",
+        "../node_modules/ngx-toastr/toastr.css"
       ],
       "scripts": ["../node_modules/bootstrap/dist/js/bootstrap.js"],
       "environmentSource": "environments/environment.ts",

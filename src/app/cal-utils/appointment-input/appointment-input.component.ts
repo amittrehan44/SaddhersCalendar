@@ -19,7 +19,7 @@ import {
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
 import { Services } from './../services.model';
-
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -45,7 +45,7 @@ export class AppointmentInputComponent implements OnInit {
     myServiceOptions: IMultiSelectOption[];
     selectedService: Services[];
 
-    constructor(public _caleventService: CalEventsService, public modal: NgbModal) { }
+    constructor(public _caleventService: CalEventsService, public modal: NgbModal, private tostr: ToastrService) { }
 
     ngOnInit() {
         
@@ -153,7 +153,7 @@ export class AppointmentInputComponent implements OnInit {
         if (this.modalRef != null)
             this.modalRef.close();
 
-       
+            this.tostr.success('Submitted Succcessfully', 'Appointment');
         
     }
 
@@ -165,6 +165,8 @@ export class AppointmentInputComponent implements OnInit {
             if (this.modalRef != null)
                 this.modalRef.close();
         }
+
+        this.tostr.warning("Deleted Successfully", "Appointment");
     }
 
     setStartData() {

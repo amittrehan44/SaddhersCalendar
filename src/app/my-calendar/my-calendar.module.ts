@@ -7,7 +7,7 @@ import { environment } from './../../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarModule } from 'angular-calendar';
+import { CalendarModule,  CalendarNativeDateFormatter, CalendarDateFormatter, DateFormatterParams   } from 'angular-calendar';
 import { FormsModule } from '@angular/forms';
 
 
@@ -22,6 +22,19 @@ import { CalEventsService } from './../cal-events.service'
 import { CalendarEventTitleFormatter} from 'angular-calendar';
 import { CustomEventTitleFormatter } from './../custom-event-title-formatter.service';
 
+
+export class CustomDateFormatter extends CalendarNativeDateFormatter {
+
+    public dayViewHour({date, locale}: DateFormatterParams): string {
+      return new Intl.DateTimeFormat('en-us', {
+        hour: 'numeric',
+        minute: 'numeric'
+      }).format(date);
+    }
+  
+  }
+
+
 @NgModule({
   imports: [
       CommonModule,
@@ -30,7 +43,12 @@ import { CustomEventTitleFormatter } from './../custom-event-title-formatter.ser
       NgbModule.forRoot(),
       NgbModalModule.forRoot(),
       FormsModule,
-      CalendarModule.forRoot(),
+      CalendarModule.forRoot({
+        dateFormatter: {
+          provide: CalendarDateFormatter, 
+          useClass: CustomDateFormatter
+        }
+      }),
       CalUtilsModule,
       CalendarModule,
       AppRoutingModule

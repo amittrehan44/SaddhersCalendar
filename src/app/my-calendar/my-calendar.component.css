@@ -20,3 +20,10 @@ li { cursor: pointer; }
     .badge {
       margin-right: 5px;
     }
+
+
+  mwl-calendar-day-view {
+     
+        overflow:hidden;
+    
+    }

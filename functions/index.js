@@ -80,7 +80,7 @@ exports.createAppointment = functions.database
                            }
                            const textMessage = {
                                //body: `Hello ${name}, you have an Appointment on ${start} - Saddhers`,
-                               body: `You have booked an Appointment on ${start} - Saddhers Hair & Beauty Salon. If you need to reschedule please call 604-746-4786`,
+                               body: `You have booked an Appointment on ${start} - Saddher's Hair & Beauty Salon. If you need to reschedule please call 604-746-4786`,
                                //to: +17787792744,
                                to: phoneNumber,  // Text to this number
                                from: twilioNumber // From a valid Twilio number
@@ -114,7 +114,7 @@ exports.textStatus = functions.database
                            }
                            const textMessage = {
                                //body: `Hello ${name}, you have an Appointment on ${start} - Saddhers`,
-                               body: `You have booked an Appointment on ${start} - Saddhers Hair & Beauty Salon. If you need to reschedule please call 604-746-4786`,
+                               body: `You have booked an Appointment on ${start} - Saddher's Hair & Beauty Salon. If you need to reschedule please call 604-746-4786`,
                                //to: +17787792744,
                                to: phoneNumber,  // Text to this number
                                from: twilioNumber // From a valid Twilio number
@@ -183,7 +183,7 @@ exports.dailySMSReminder = functions.https.onRequest((req, res) => {
                 }
 
                 const textMessage = {
-                    body: `You have an Appointment on ${start} - Saddhers`,
+                    body: `You have an Appointment on ${start} - Saddher's`,
                     //to: +17787792744,
                     to: phoneNumber1,  // Text to this number
                     from: twilioNumber // From a valid Twilio number
@@ -303,11 +303,11 @@ exports.hourlySMSReminder = functions.https.onRequest((req, res) => {
                 const start = DisplayCurrentTime(childSnap.val().start)
                 const phoneNumber1 = childSnap.val().phone
                 
-                console.log('Yess' + phoneNumber1)
+               // console.log('Yess' + phoneNumber1)
                 
 
                 if (!validE164(phoneNumber1)) {
-                    console.log('Validating number format');
+                    //console.log('Validating number format');
                     return
                     //continue;
                    // throw new Error('number must be E164 format!')
@@ -315,7 +315,7 @@ exports.hourlySMSReminder = functions.https.onRequest((req, res) => {
                 console.log('SMS will be sent to ' + name + ' on phone number' + phoneNumber1 + 'on ' + start)
                
                 const textMessage = {
-                    body: `You have an Appointment on ${start} - Saddhers`,
+                    body: `You have an Appointment on ${start} - Saddher's. If you need to reschedule please call 604-746-4786`,
                     //to: +17787792744,
                     to: phoneNumber1,  // Text to this number
                     from: twilioNumber // From a valid Twilio number
@@ -366,7 +366,7 @@ function validE164(num) {
 function DisplayCurrentTime(date1) {
     
 
-    console.log(date1.substring(35, 56));
+    //console.log(date1.substring(35, 56));
     var dayLightHours = 7;
     if (date1.substring(35, 56) == "Pacific Daylight Time") {
 
